@@ -46,80 +46,6 @@ function showDateTime() {
   showDate.innerHTML = `${day} ${month} ${date}, ${year}, ${hour}:${minutes}`;
 }
 
-
-
-// JS for searching locations
-
-// function searchCity(event) {
-//   event.preventDefault();
-//   let searchInput = document.querySelector("#inlineFormInputGroupUsername2");
-
-//   let h1 = document.querySelector("h1");
-//   if (searchInput.value) {
-//     h1.innerHTML = `${searchInput.value}`;
-//   } else {
-//     h1.innerHTML = `Weather for a city`;
-//     alert("Please, type the city");
-//   }
-// }
-
-// let searchForm = document.querySelector("#search-form");
-// searchForm.addEventListener("submit", searchCity);
-
-// JS for changing temperature F -> C
-
-////////////////////////////////////////////////////
-/*
-function changeToCelsius(event) {
-  event.preventDefault();
-  let currentTemperature = document.querySelector("#current-temperature");
-  currentTemperature.innerHTML = 11 + "℃";
-}
-let celsiusTemperature = document.querySelector("#celsius-temperature");
-celsiusTemperature.addEventListener("click", changeToCelsius);
-//  JS for changing temperature C -> F
-function changeToFahrenheit(event) {
-  event.preventDefault();
-  let currentTemperature = document.querySelector("#current-temperature");
-  currentTemperature.innerHTML = 1.8 * 11 + 32 + "°F";
-}
-let fahrenheitTemperature = document.querySelector("#fahrenheit-temperature");
-fahrenheitTemperature.addEventListener("click", changeToFahrenheit);
-// Weather API
-let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", searchCity);
-function searchCity(event) {
-  event.preventDefault();
-  //let searchInput = document.querySelector("#inlineFormInputGroupUsername2");
-  let city = document.querySelector("#inlineFormInputGroupUsername2").value;
-  let cityName = document.querySelector("h1");
-  if (city) {
-    cityName.innerHTML = `${city}`;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-    axios.get(`${apiUrl}`).then(showTemperature);
-  } else {
-    cityName.innerHTML = `Weather for a city`;
-    alert("Please, type the city");
-  }
-}
-//let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-function showTemperature(response) {
-  let temperature = Math.round(response.data.main.temp);
-  let temperatureElement = document.querySelector("#current-temperature");
-  let description = document.querySelector("#temperature-description");
-  temperatureElement.innerHTML = `${temperature}°C`;
-  description.innerHTML = response.data.weather[0].description;
-}
-//axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemperature);
-//axios.get(`${apiUrl}`);
-*/
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-let apiKey = "c6594087e335e4affb312bbdec8ee13e";
-let city = "Cracow";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayTemperature);
-
 // Search API
 
 function displayTemperature(response) {
@@ -131,6 +57,7 @@ function displayTemperature(response) {
   let maxTemperatureElement = document.querySelector("#max-temperature");
   let minTemperatureElement = document.querySelector("#min-temperature");
   let currentWeatherIconElement = document.querySelector("#current-weather-icon");
+  
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
@@ -140,28 +67,48 @@ function displayTemperature(response) {
   minTemperatureElement.innerHTML = Math.round(response.data.main.temp_min);
   currentWeatherIconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   currentWeatherIconElement.setAttribute("alt", response.data.weather[0].description);
-
 }
+
+// JS for searching locations
+
+function search(city) {
+  let apiKey = "c6594087e335e4affb312bbdec8ee13e";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayTemperature);
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#city-input");
+  search(cityInputElement.value);
+}
+
+search("Krakow");
+
+let form = document.querySelector("#search-form");
+if (form) {
+  form.addEventListener('submit', handleSubmit, false);
+}
+
 
 
 
 
 // Geo API - jest okay, czeka na dalsze lekcje
-/*
-function getWeatherForCoordinates(position) {
+
+/* function getWeatherForCoordinates(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
+  let apiKey = "c6594087e335e4affb312bbdec8ee13e";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`
   axios.get(`${apiUrl}`).then(showWeather);
 }
 
-
 function getWeatherForCity(city) {
+  let apiKey = "c6594087e335e4affb312bbdec8ee13e";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(`${apiUrl}`).then(showWeather);
-}
-*/
-
+} */
 
 /*
 function withoutGeoApi() {
@@ -173,8 +120,7 @@ function withoutGeoApi() {
 
 // jest okay, czeka na dalsze lekcje
 
-/*
-function showWeather(response) {
+/* function showWeather(response) {
   let temperature = Math.round(response.data.main.temp);
   let currentTemperature = document.querySelector("#current-temperature");
   let description = document.querySelector("#temperature-description");
@@ -189,5 +135,4 @@ function displayGeoApiPrompt() {
   } else {
     navigator.geolocation.getCurrentPosition(getWeatherForCoordinates);
   }
-}
-*/
+} */

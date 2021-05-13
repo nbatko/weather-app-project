@@ -7,7 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"/>
     <link type="text/css" rel="stylesheet" href="src/style.css" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="src/app.js"></script>
+    
     <script src="https://kit.fontawesome.com/6416ada0a9.js" crossorigin="anonymous"></script>
   <title>Weather App Project</title>
 </head>
@@ -16,71 +16,28 @@
   <div class="search-city">
         <div class="row">
           <div class="col-6">
-            <h1 id="city">Cracow</h1>
+            <h1 id="city"></h1>
           </div>
           <div class="col">
             <div class="row">
               <div class="col">
                 <form class="form-inline" id="search-form">
                   <!-- <form> może mieć w sobie bootstrapowy podział na row/col, więc każde z pól może być wewnętrznie kolumną, nie muszę dzielić formularzy-->
-                  <label
-                    class="sr-only"
-                    for="inlineFormInputGroupUsername2"
-                    id="search-city"
-                    >Search locations</label>
+                  <label class="sr-only" for="inlineFormInputGroupUsername2" id="search-city">Search locations</label>
                   <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
                       <div class="input-group-text">
-                        <i
-                          class="fa fa-search"
-                          aria-hidden="true"
-                          style="font-size: 16px;"
-                        ></i>
+                        <i class="fa fa-search" aria-hidden="true" style="font-size: 20px;"></i>
                       </div>
                     </div>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="inlineFormInputGroupUsername2"
-                      placeholder="Search locations"
-                      autocomplete="off"
-                      autofocus="on"
-                    />
-                    <button
-                      type="submit"
-                      class="btn btn-primary"
-                      id="submit-city"
-                    >
-                      Search
-                    </button>
+                    <input type="search" class="form-control" id="city-input" placeholder="Search locations" autocomplete="off" autofocus="on"/>
+                    <button type="submit" class="btn btn-primary" id="submit-city">Search</button>
                   </div>
                 </form>
               </div>
-              <!-- <div class="col-4">
-                        <form class="form-inline">
-                                    <div class="form-group">
-                                    <label class="sr-only" for="exampleFormControlSelect1">Example select</label>
-                                        <select class="form-control" id="exampleFormControlSelect1">
-                                            <option>Popular locations</option>
-                                            <option>London</option>
-                                            <option>Paris</option>
-                                            <option>New York</option>
-                                            <option>Madrid</option>
-                                            </select>
-                                    </div>
-                        </form>
-                    </div> -->
               <div class="col-3">
-                <div
-                  class="btn-toolbar"
-                  role="toolbar"
-                  aria-label="Toolbar with button groups"
-                >
-                  <div
-                    class="btn-group me-2"
-                    role="group"
-                    aria-label="First group"
-                  >
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                  <div class="btn-group me-2" role="group" aria-label="First group">
                     <button type="button" class="btn btn-primary" id="celsius-temperature">°C</button>
                     <button type="button" class="btn btn-primary" id="fahrenheit-temperature">°F</button>
                   </div>
@@ -213,9 +170,12 @@
             <p class="copyright">Open-source code by <a href="https://github.com/nbatko" target="_blank">Natalia Batko</a> <br />
             for <a href="https://www.shecodes.io" target="_blank">SheCodes+</a> Workshop</p>
     </div>
+    
+    <script src="src/app.js"></script>
     <script type="text/javascript">
       showDateTime();
-      displayGeoApiPrompt();
+      //displayGeoApiPrompt();
+      //prepareForms();
     </script>
   </div>
 </body>
