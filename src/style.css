@@ -68,10 +68,15 @@ h1 {
 
 h2 {
   font-size: 52px;
+  padding-top: 8px;
 }
 
 h4 {
   font-size: 16px;
+}
+
+#current-weather-icon {
+  width: 80px;
 }
 
 .forecast {

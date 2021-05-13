@@ -116,6 +116,9 @@ function showTemperature(response) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 let apiKey = "c6594087e335e4affb312bbdec8ee13e";
+let city = "Cracow";
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayTemperature);
 
 // Search API
 
@@ -127,6 +130,7 @@ function displayTemperature(response) {
   let pressureElement = document.querySelector("#pressure");
   let maxTemperatureElement = document.querySelector("#max-temperature");
   let minTemperatureElement = document.querySelector("#min-temperature");
+  let currentWeatherIconElement = document.querySelector("#current-weather-icon");
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
@@ -134,10 +138,12 @@ function displayTemperature(response) {
   pressureElement.innerHTML = response.data.main.pressure;
   maxTemperatureElement.innerHTML = Math.round(response.data.main.temp_max);
   minTemperatureElement.innerHTML = Math.round(response.data.main.temp_min);
+  currentWeatherIconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  currentWeatherIconElement.setAttribute("alt", response.data.weather[0].description);
+
 }
 
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Zakopane&units=metric&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayTemperature);
+
 
 
 // Geo API - jest okay, czeka na dalsze lekcje
