@@ -117,18 +117,25 @@ function displayTemperature(response) {
   let temperatureElement = document.querySelector("#current-temperature");
   let cityElement = document.querySelector("#city");
   let descriptionElement = document.querySelector("#temperature-description");
+  let humidityElement = document.querySelector("#humidity");
+  let pressureElement = document.querySelector("#pressure");
+  let maxTemperatureElement = document.querySelector("#max-temperature");
+  let minTemperatureElement = document.querySelector("#min-temperature");
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
-
+  humidityElement.innerHTML = response.data.main.humidity;
+  pressureElement.innerHTML = response.data.main.pressure;
+  maxTemperatureElement.innerHTML = Math.round(response.data.main.temp_max);
+  minTemperatureElement.innerHTML = Math.round(response.data.main.temp_min);
 }
 
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-  axios.get(`${apiUrl}`).then(showWeather);
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Zakopane&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayTemperature);
 
 
-// Geo API
-
+// Geo API - jest okay, czeka na dalsze lekcje
+/*
 function getWeatherForCoordinates(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
@@ -141,6 +148,8 @@ function getWeatherForCity(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(`${apiUrl}`).then(showWeather);
 }
+*/
+
 
 /*
 function withoutGeoApi() {
@@ -150,6 +159,9 @@ function withoutGeoApi() {
 }
 */
 
+// jest okay, czeka na dalsze lekcje
+
+/*
 function showWeather(response) {
   let temperature = Math.round(response.data.main.temp);
   let currentTemperature = document.querySelector("#current-temperature");
@@ -166,3 +178,4 @@ function displayGeoApiPrompt() {
     navigator.geolocation.getCurrentPosition(getWeatherForCoordinates);
   }
 }
+*/

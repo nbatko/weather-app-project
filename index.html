@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"/>
     <link type="text/css" rel="stylesheet" href="src/style.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="src/app.js"></script>
     <script src="https://kit.fontawesome.com/6416ada0a9.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <title>Weather App Project</title>
 </head>
 <body>
@@ -104,15 +104,15 @@
                 <i class="fas fa-cloud-sun" style="font-size: 46px;"></i>
               </div>
               <div class="col">
-                <h2 id="current-temperature">°C</h2>
+                <h2><span id="current-temperature"></span>°C</h2>
               </div>
             </div>
           </div>
           <div class="col">
             <ul>
-              <li><span id="humidity">Humidity:</span></li>
-              <li><span id="pressure">Pressure:</span></li>
-              <li><span id="max-min-temperature">Max/min temperature:</span></li>
+              <li>Humidity: <span id="humidity"></span>%</li>
+              <li>Pressure: <span id="pressure"></span> hPa</li>
+              <li>Max/min temperature: <span id="max-temperature"></span>℃/<span id="min-temperature"></span>℃</li>
             </ul>
           </div>
         </div>
@@ -123,7 +123,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-3">
                     <i class="fas fa-sun"></i>
                   </div>
                   <div class="col">
@@ -140,7 +140,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-3">
                     <i class="fas fa-cloud-sun"></i>
                   </div>
                   <div class="col">
@@ -157,7 +157,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-3">
                     <i class="fas fa-cloud"></i>
                   </div>
                   <div class="col">
@@ -174,7 +174,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-3">
                     <i class="fas fa-cloud"></i>
                   </div>
                   <div class="col">
@@ -191,7 +191,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-3">
                     <i class="fas fa-cloud-showers-heavy"></i>
                   </div>
                   <div class="col">
@@ -208,7 +208,7 @@
       </div>
     </div>
     <div class="copyright">
-            <p>Open-source code by <a href="https://github.com/nbatko" target="_blank">Natalia Batko</a> <br />
+            <p class="copyright">Open-source code by <a href="https://github.com/nbatko" target="_blank">Natalia Batko</a> <br />
             for <a href="https://www.shecodes.io" target="_blank">SheCodes+</a> Workshop</p>
     </div>
     <script type="text/javascript">
