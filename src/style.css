@@ -35,7 +35,7 @@ body {
   border-radius: 15px;
 }
 
-p {
+p:first-letter {
   text-transform: capitalize;
 }
 
@@ -71,7 +71,7 @@ h2 {
 }
 
 h4 {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .forecast {
