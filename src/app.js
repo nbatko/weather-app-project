@@ -58,7 +58,9 @@ function displayTemperature(response) {
   let minTemperatureElement = document.querySelector("#min-temperature");
   let currentWeatherIconElement = document.querySelector("#current-weather-icon");
   
-  temperatureElement.innerHTML = Math.round(response.data.main.temp);
+  celsiusTemperature = response.data.main.temp;
+
+  temperatureElement.innerHTML = Math.round(celsiusTemperature) + celsiusSymbol;
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
@@ -83,16 +85,38 @@ function handleSubmit(event) {
   search(cityInputElement.value);
 }
 
-search("Krakow");
-
 let form = document.querySelector("#search-form");
 if (form) {
   form.addEventListener('submit', handleSubmit, false);
 }
 
+// Temperature conversion
 
+function displayFahrenheitTemperature(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#current-temperature");
+  let fahrenheitTemperature = (celsiusTemperature * 9 / 5) + 32;
+  let fahrenheitSymbol = "°F";
+  
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature) + fahrenheitSymbol;
+}
 
+function displayCelsiusTemperature(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#current-temperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature) + celsiusSymbol;
+}
 
+let celsiusTemperature = null;
+let celsiusSymbol = "°C";
+
+let fahrenheitClick = document.querySelector("#fahrenheit-temperature");
+fahrenheitClick.addEventListener("click", displayFahrenheitTemperature);
+
+let celsiusClick = document.querySelector("#celsius-temperature");
+celsiusClick.addEventListener("click", displayCelsiusTemperature);
+
+search("Kraków");
 
 // Geo API - jest okay, czeka na dalsze lekcje
 
