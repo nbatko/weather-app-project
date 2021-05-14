@@ -54,19 +54,18 @@ function displayTemperature(response) {
   let descriptionElement = document.querySelector("#temperature-description");
   let humidityElement = document.querySelector("#humidity");
   let pressureElement = document.querySelector("#pressure");
-  let maxTemperatureElement = document.querySelector("#max-temperature");
-  let minTemperatureElement = document.querySelector("#min-temperature");
+  let feelsLikeTemperatureElement = document.querySelector("#feels-like-temperature");
   let currentWeatherIconElement = document.querySelector("#current-weather-icon");
   
   celsiusTemperature = response.data.main.temp;
+  celsiusFeelsLikeTemperature = response.data.main.feels_like;
 
   temperatureElement.innerHTML = Math.round(celsiusTemperature) + celsiusSymbol;
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
   pressureElement.innerHTML = response.data.main.pressure;
-  maxTemperatureElement.innerHTML = Math.round(response.data.main.temp_max);
-  minTemperatureElement.innerHTML = Math.round(response.data.main.temp_min);
+  feelsLikeTemperatureElement.innerHTML = Math.round(response.data.main.feels_like) + celsiusSymbol;
   currentWeatherIconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   currentWeatherIconElement.setAttribute("alt", response.data.weather[0].description);
 }
@@ -95,19 +94,24 @@ if (form) {
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#current-temperature");
+  let feelsLikeTemperatureElement = document.querySelector("#feels-like-temperature");
   let fahrenheitTemperature = (celsiusTemperature * 9 / 5) + 32;
+  let fahrenheitFeelsLikeTemperature = (celsiusFeelsLikeTemperature * 9 / 5) + 32;
   let fahrenheitSymbol = "°F";
-  
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature) + fahrenheitSymbol;
+  feelsLikeTemperatureElement.innerHTML = Math.round(fahrenheitFeelsLikeTemperature) + fahrenheitSymbol;
 }
 
 function displayCelsiusTemperature(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#current-temperature");
+  let feelsLikeTemperatureElement = document.querySelector("#feels-like-temperature");
   temperatureElement.innerHTML = Math.round(celsiusTemperature) + celsiusSymbol;
+  feelsLikeTemperatureElement.innerHTML = Math.round(celsiusFeelsLikeTemperature) + celsiusSymbol;
 }
 
 let celsiusTemperature = null;
+let celsiusFeelsLikeTemperature = null;
 let celsiusSymbol = "°C";
 
 let fahrenheitClick = document.querySelector("#fahrenheit-temperature");
