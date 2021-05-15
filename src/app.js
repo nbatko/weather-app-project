@@ -46,6 +46,37 @@ function showDateTime() {
   showDate.innerHTML = `${day} ${month} ${date}, ${year}, ${hour}:${minutes}`;
 }
 
+// JS for forecast
+
+function displayForecast() {
+  let forecastElement = document.querySelector("#weather-forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu"];
+  
+  days.forEach(function (day) {
+    forecastHTML = forecastHTML + `<div class="col" id="weather-forecast">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title"><strong>${day}</strong></h5>
+            <p class="date">March 9th</p>
+          </div>
+        </div>
+        <div>
+          <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="forecast-weather-icon" id="forecast-weather-icon">
+        </div>
+        <p class="card-text">13℃</p>
+        <p class="weather-description">Sunny</p>
+      </div>
+    </div>
+  </div>`;
+  });
+
+forecastHTML = forecastHTML + `</div>`;
+forecastElement.innerHTML = forecastHTML;
+}
+
 // Search API
 
 function displayTemperature(response) {
@@ -120,6 +151,7 @@ fahrenheitClick.addEventListener("click", displayFahrenheitTemperature);
 let celsiusClick = document.querySelector("#celsius-temperature");
 celsiusClick.addEventListener("click", displayCelsiusTemperature);
 
+displayForecast();
 search("Kraków");
 
 // Geo API - jest okay, czeka na dalsze lekcje
