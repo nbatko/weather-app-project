@@ -48,12 +48,13 @@ function showDateTime() {
 
 // JS for forecast
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data.daily);
   let forecastElement = document.querySelector("#weather-forecast");
   let forecastHTML = `<div class="row">`;
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu"];
   
-  days.forEach(function (day) {
+  days.forEach(function(day) {
     forecastHTML = forecastHTML + `<div class="col" id="weather-forecast">
     <div class="card">
       <div class="card-body">
@@ -77,7 +78,13 @@ forecastHTML = forecastHTML + `</div>`;
 forecastElement.innerHTML = forecastHTML;
 }
 
-// Search API
+// Search API and forecast API
+
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayForecast);
+}
 
 function displayTemperature(response) {
   let temperatureElement = document.querySelector("#current-temperature");
@@ -99,6 +106,9 @@ function displayTemperature(response) {
   feelsLikeTemperatureElement.innerHTML = Math.round(response.data.main.feels_like) + celsiusSymbol;
   currentWeatherIconElement.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
   currentWeatherIconElement.setAttribute("alt", response.data.weather[0].description);
+
+  getForecast(response.data.coord);
+
 }
 
 // JS for searching locations
@@ -144,6 +154,7 @@ function displayCelsiusTemperature(event) {
 let celsiusTemperature = null;
 let celsiusFeelsLikeTemperature = null;
 let celsiusSymbol = "°C";
+let apiKey = "c6594087e335e4affb312bbdec8ee13e";
 
 let fahrenheitClick = document.querySelector("#fahrenheit-temperature");
 fahrenheitClick.addEventListener("click", displayFahrenheitTemperature);
@@ -151,7 +162,6 @@ fahrenheitClick.addEventListener("click", displayFahrenheitTemperature);
 let celsiusClick = document.querySelector("#celsius-temperature");
 celsiusClick.addEventListener("click", displayCelsiusTemperature);
 
-displayForecast();
 search("Kraków");
 
 // Geo API - jest okay, czeka na dalsze lekcje
