@@ -48,30 +48,45 @@ function showDateTime() {
 
 // JS for forecast
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+/* function formatDate(timestamp) {
+  let dtDate = new Date(timestamp * 1000);
+  let day = dtDate.getDate();
+  let month = dtDate.getMonth();
+  return day;
+} */
+
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#weather-forecast");
   let forecastHTML = `<div class="row">`;
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu"];
   
-  days.forEach(function(day) {
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6 && index > 0) {
     forecastHTML = forecastHTML + `<div class="col" id="weather-forecast">
     <div class="card">
       <div class="card-body">
         <div class="row">
           <div class="col">
-            <h5 class="card-title"><strong>${day}</strong></h5>
-            <p class="date">March 9th</p>
+            <h5 class="card-title"><strong>${formatDay(forecastDay.dt)}</strong></h5>
+            <p class="date">Date</p>
           </div>
         </div>
         <div>
-          <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="forecast-weather-icon" id="forecast-weather-icon">
+          <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="weather icon" class="forecast-weather-icon" id="forecast-weather-icon">
         </div>
-        <p class="card-text">13℃</p>
-        <p class="weather-description">Sunny</p>
+        <p class="card-text">${Math.round(forecastDay.temp.day)}°C</p>
+        <p class="weather-description">${forecastDay.weather[0].description}</p>
       </div>
     </div>
   </div>`;
+  }
   });
 
 forecastHTML = forecastHTML + `</div>`;
@@ -162,7 +177,7 @@ fahrenheitClick.addEventListener("click", displayFahrenheitTemperature);
 let celsiusClick = document.querySelector("#celsius-temperature");
 celsiusClick.addEventListener("click", displayCelsiusTemperature);
 
-search("Kraków");
+search("kraków");
 
 // Geo API - jest okay, czeka na dalsze lekcje
 
