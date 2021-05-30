@@ -147,41 +147,24 @@ if (form) {
 
 // Temperature conversion
 
-function displayFahrenheitTemperature(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#current-temperature");
-  let feelsLikeTemperatureElement = document.querySelector("#feels-like-temperature");
-  let fahrenheitTemperature = (celsiusTemperature * 9 / 5) + 32;
-  let fahrenheitFeelsLikeTemperature = (celsiusFeelsLikeTemperature * 9 / 5) + 32;
-  let fahrenheitSymbol = "°F";
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature) + fahrenheitSymbol;
-  feelsLikeTemperatureElement.innerHTML = Math.round(fahrenheitFeelsLikeTemperature) + fahrenheitSymbol;
-}
-
 function displayCelsiusTemperature(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#current-temperature");
   let feelsLikeTemperatureElement = document.querySelector("#feels-like-temperature");
   temperatureElement.innerHTML = Math.round(celsiusTemperature) + celsiusSymbol;
   feelsLikeTemperatureElement.innerHTML = Math.round(celsiusFeelsLikeTemperature) + celsiusSymbol;
-}
+} 
 
 let celsiusTemperature = null;
 let celsiusFeelsLikeTemperature = null;
 let celsiusSymbol = "°C";
 let apiKey = "c6594087e335e4affb312bbdec8ee13e";
 
-let fahrenheitClick = document.querySelector("#fahrenheit-temperature");
-fahrenheitClick.addEventListener("click", displayFahrenheitTemperature);
-
-let celsiusClick = document.querySelector("#celsius-temperature");
-celsiusClick.addEventListener("click", displayCelsiusTemperature);
-
 search("kraków");
 
 // Geo API - jest okay, czeka na dalsze lekcje
 
-/* function getWeatherForCoordinates(position) {
+ function getWeatherForCoordinates(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiKey = "c6594087e335e4affb312bbdec8ee13e";
@@ -193,19 +176,19 @@ function getWeatherForCity(city) {
   let apiKey = "c6594087e335e4affb312bbdec8ee13e";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(`${apiUrl}`).then(showWeather);
-} */
+}
 
-/*
+
 function withoutGeoApi() {
   let currentLocation = "Cracow";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentLocation}&units=metric&appid=${apiKey}`;
   axios.get(`${apiUrl}`).then(showWeather);
 }
-*/
+
 
 // jest okay, czeka na dalsze lekcje
 
-/* function showWeather(response) {
+function showWeather(response) {
   let temperature = Math.round(response.data.main.temp);
   let currentTemperature = document.querySelector("#current-temperature");
   let description = document.querySelector("#temperature-description");
@@ -220,4 +203,4 @@ function displayGeoApiPrompt() {
   } else {
     navigator.geolocation.getCurrentPosition(getWeatherForCoordinates);
   }
-} */
+}
