@@ -46,6 +46,7 @@ function showDateTime() {
   showDate.innerHTML = `${day} ${month} ${date}, ${year}, ${hour}:${minutes}`;
 }
 
+
 // JS for forecast
 
 function formatDay(timestamp) {
@@ -55,13 +56,6 @@ function formatDay(timestamp) {
   return days[day];
 }
 
-/* function formatDate(timestamp) {
-  let dtDate = new Date(timestamp * 1000);
-  let day = dtDate.getDate();
-  let month = dtDate.getMonth();
-  return day;
-} */
-
 function displayForecast(response) {
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#weather-forecast");
@@ -69,34 +63,32 @@ function displayForecast(response) {
   
   forecast.forEach(function (forecastDay, index) {
     if (index < 6 && index > 0) {
-    forecastHTML = forecastHTML + `<div class="col" id="weather-forecast">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col">
-            <h5 class="card-title"><strong>${formatDay(forecastDay.dt)}</strong></h5>
-            <p class="date">Date</p>
+      forecastHTML = forecastHTML + `<div class="col" id="weather-forecast">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title"><strong>${formatDay(forecastDay.dt)}</strong></h5>
+            </div>
           </div>
+          <div>
+            <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="weather icon" class="forecast-weather-icon" id="forecast-weather-icon">
+          </div>
+          <p class="card-text">${Math.round(forecastDay.temp.day)}°C</p>
+          <p class="weather-description">${forecastDay.weather[0].description}</p>
         </div>
-        <div>
-          <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="weather icon" class="forecast-weather-icon" id="forecast-weather-icon">
-        </div>
-        <p class="card-text">${Math.round(forecastDay.temp.day)}°C</p>
-        <p class="weather-description">${forecastDay.weather[0].description}</p>
       </div>
-    </div>
-  </div>`;
-  }
-  });
+    </div>`;
+    }
+    });
 
-forecastHTML = forecastHTML + `</div>`;
-forecastElement.innerHTML = forecastHTML;
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
 }
 
 // Search API and forecast API
 
 function getForecast(coordinates) {
-  console.log(coordinates);
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(displayForecast);
 }
@@ -160,11 +152,11 @@ let celsiusFeelsLikeTemperature = null;
 let celsiusSymbol = "°C";
 let apiKey = "c6594087e335e4affb312bbdec8ee13e";
 
-search("kraków");
+search("Kraków");
 
-// Geo API - jest okay, czeka na dalsze lekcje
+// Geo API
 
- function getWeatherForCoordinates(position) {
+function getWeatherForCoordinates(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiKey = "c6594087e335e4affb312bbdec8ee13e";
@@ -178,13 +170,11 @@ function getWeatherForCity(city) {
   axios.get(`${apiUrl}`).then(showWeather);
 }
 
-
 function withoutGeoApi() {
-  let currentLocation = "Cracow";
+  let currentLocation = "Kraków";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${currentLocation}&units=metric&appid=${apiKey}`;
   axios.get(`${apiUrl}`).then(showWeather);
 }
-
 
 // jest okay, czeka na dalsze lekcje
 
@@ -192,14 +182,18 @@ function showWeather(response) {
   let temperature = Math.round(response.data.main.temp);
   let currentTemperature = document.querySelector("#current-temperature");
   let description = document.querySelector("#temperature-description");
+  let cityName = document.querySelector("#city");
   currentTemperature.innerHTML = `${temperature}°C`;
   description.innerHTML = response.data.weather[0].description;
+  cityName.innerHTML = response.data.name;
+  displayTemperature(response);
+  displayForecast(response);
 }
 
 function displayGeoApiPrompt() {
   if (!navigator.geolocation) {
     alert ("GeoAPI is not available!");
-    getWeatherForCity('Cracow');
+    getWeatherForCity('Kraków');
   } else {
     navigator.geolocation.getCurrentPosition(getWeatherForCoordinates);
   }
